@@ -18,7 +18,7 @@ const AppRouter = () => (
             <Route path="/help" component={HelpPage} />    
             <Route component={NotFoundPage}/>    
         </Switch>
-    </div>
+    </div> 
     </BrowserRouter>
 )
 
