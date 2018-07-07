@@ -114,6 +114,20 @@ const filtersReducer = (state = filtersReducersDefaultState,action)=>{
     }
 }
 
+// GET VISIBLE EXPENSES
+const getVisibleExpenses = (expenses,{text,sortBy,startDate,endDate}) =>{
+    return expenses.filter((expense)=>{
+        // cheking for their validity
+        // only those expenses will be show which have a valid startDate , valid End Date
+        const startDateMatch = typeof startDate!=='number' || expense.createdAt>=startDate;
+        const endDateMatch = typeof endDate !== 'number' || expense.value <= endDate ;
+        const textMatch = expense.description.toLowerCase().includes(text.toLowerCase());
+
+        // if all the three things exists then only it will be visible
+        return startDateMatch && endDateMatch && textMatch;
+    })
+}
+
 
 //store creation
 // now we are able to manage both the properties i.e.
@@ -126,19 +140,22 @@ const store = createStore(
 );
 
 store.subscribe(()=>{
-    console.log(store.getState())
+    const state = store.getState();
+    // using this function we ensure that only valid expenses are shown
+    const visibleExpenses = getVisibleExpenses(state.expenses,state.filters);
+    console.log(visibleExpenses);
 });
 
 // Dsipatching
-const expenseOne = store.dispatch(addExpense({description:'rent', amount:100}));
-const expenseTwo = store.dispatch(addExpense({description:'coffee', amount:300}));
-store.dispatch(removeExpense({id:expenseOne.expense.id}));
-store.dispatch(editExpense(expenseTwo.expense.id,{amount: 500}));
+const expenseOne = store.dispatch(addExpense({description:'rent', amount:100, createdAt:1000}));
+const expenseTwo = store.dispatch(addExpense({description:'coffee', amount:300, createdAt:-1000}));
+// store.dispatch(removeExpense({id:expenseOne.expense.id}));
+// store.dispatch(editExpense(expenseTwo.expense.id,{amount: 500}));
 store.dispatch(setTextFilter('rent'));
-store.dispatch(sortByAmount()); // change the sortBy property to Amount
-store.dispatch(sortByDate()); // change the sort by property to Date which is default
+// store.dispatch(sortByAmount()); // change the sortBy property to Amount
+// store.dispatch(sortByDate()); // change the sort by property to Date which is default
 store.dispatch(setStartDate(125));
-store.dispatch(setEndDate(150));
+// store.dispatch(setEndDate(150));
 
 
 const demoState = {
