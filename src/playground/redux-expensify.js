@@ -126,6 +126,15 @@ const getVisibleExpenses = (expenses,{text,sortBy,startDate,endDate}) =>{
         // if all the three things exists then only it will be visible
         return startDateMatch && endDateMatch && textMatch;
     })
+    .sort((a,b)=>{
+        if(sortBy==='date')
+        {
+            return (a.createdAt < b.createdAt) ?1 : -1;
+        }
+        else{
+            return a.amount < b.amount ?1:-1;
+        }
+    })
 }
 
 
@@ -152,7 +161,7 @@ const expenseTwo = store.dispatch(addExpense({description:'coffee', amount:300, 
 // store.dispatch(removeExpense({id:expenseOne.expense.id}));
 // store.dispatch(editExpense(expenseTwo.expense.id,{amount: 500}));
 store.dispatch(setTextFilter('rent'));
-// store.dispatch(sortByAmount()); // change the sortBy property to Amount
+store.dispatch(sortByAmount()); // change the sortBy property to Amount
 // store.dispatch(sortByDate()); // change the sort by property to Date which is default
 store.dispatch(setStartDate(125));
 // store.dispatch(setEndDate(150));
