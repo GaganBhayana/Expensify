@@ -1,3 +1,5 @@
+// this file is the compele code which has been refactored into seperate components.
+//this file is not needed.
 import {createStore,combineReducers} from 'redux';
 import uuid from 'uuid';
 
