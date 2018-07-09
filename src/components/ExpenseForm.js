@@ -10,14 +10,17 @@ import 'react-dates/initialize'
 export default class ExpenseForm extends React.Component{
     //  here it is better to maintain a local component state to tract tha changes for all of the 
     // inputs and only when the user actually submits the form we willsend to redux
-    state = {
-        description: "",
-        note: "",
-        amount: "",
-        createdAt: moment(),
-        calendarFocused:false,   //need to keep track of it for moment
-        error: ""
-    }; 
+    constructor(props){
+        super(props);
+        this.state = {
+            description: (props.expense)?props.expense.description:"",
+            note: (props.expense)?props.expense.note:"",
+            amount: (props.expense)?(props.expense.amount/100).toString():"",
+            createdAt: (props.expense)?moment(props.expense.createdAt):moment(),
+            calendarFocused:false,   //need to keep track of it for moment
+            error: ""
+        }; 
+    }
     onDescriptionChange = (e)=>{
         const description = e.target.value;
         this.setState(()=>({description:description}));

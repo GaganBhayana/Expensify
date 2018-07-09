@@ -9,7 +9,7 @@ export default () =>{
         combineReducers({
             expenses: expensesReducer,
             filters: filtersReducer
-        })
+        },)
     );
     return store;
 }
