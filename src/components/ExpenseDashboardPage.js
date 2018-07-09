@@ -3,7 +3,7 @@ import ExpenseList from './ExpensesList';
 
 const ExpenseDashboardPage = () =>(
     <div>
-        <ExpenseList/>
+        <ExpenseList />
     </div>
 );
 

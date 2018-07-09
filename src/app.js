@@ -15,7 +15,11 @@ const store = configureStore();
 
 store.dispatch(addExpense({description:'water Bill'}));
 store.dispatch(addExpense({description:'gas Bill'}));
-store.dispatch(setTextFilter('bill'));
+store.dispatch(setTextFilter('water'));
+// just to test if everuthing is working
+setTimeout(()=>{    //3 sec later filter will change and things appear accordingly
+    store.dispatch(setTextFilter('bill'));
+},3000);
 
 const state = store.getState();
 const visibleExpenses = getVisibleExpenses(state.expenses,state.filters);
