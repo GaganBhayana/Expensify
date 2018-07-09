@@ -22,7 +22,7 @@ store.dispatch(addExpense({description:'Rent', amount:10900}));
 // // just to test if everuthing is working
 // setTimeout(()=>{    //3 sec later filter will change and things appear accordingly
 //     store.dispatch(setTextFilter('bill'));
-// },3000);
+// },3000); 
 
 const state = store.getState();
 const visibleExpenses = getVisibleExpenses(state.expenses,state.filters);
